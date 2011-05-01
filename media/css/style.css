@@ -1,0 +1,163 @@
+body {
+    background: url(/images/bg.jpg) repeat-x;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#header {
+    width: 960px;
+    margin: 0 auto;
+    position: relative;
+}
+
+#header h1 {
+    padding: 50px 0;   
+    text-align: center;
+    color: #333;
+    font-family: 'Volcorn', serif;
+
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 400;
+    text-shadow: none;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0em;
+    word-spacing: 0em;
+    line-height: 1.2;    
+}
+
+#header h1 a {
+    color: #333;
+}
+
+
+#header .slogan {
+    font-size: 40px;
+    font-family: 'Volcorn', serif;
+    color: #333;
+    position: absolute;
+
+    right: 0px;
+    top: 50px;    
+}
+
+div#wrapper {
+    margin: 0 auto;
+    padding: 50px;
+    padding-right: 0;
+    padding-top: 0;
+    width: 960px;
+
+    background: white;
+    position: relative;
+}
+
+#header {
+    height: 380px;
+    padding-left: 200px;
+    
+    text-align: left;
+}
+
+#header h2 {
+    font-size: 30px;
+    font-family: arial;
+    color: #333;
+    padding-top: 35px;
+}
+
+#header div {
+    margin-top: 40px;
+    font-size: 25px;
+}
+
+ul.ads {
+    text-align: left;
+    margin-top: 20px;
+    position: relative;
+
+    float: left;
+}
+
+ul.ads li {
+    padding: 10px;
+    font-size: 153.9%;
+    padding-left: 25px;
+    margin-left: 20px;
+}
+
+ul.ads li a {
+    text-decoration: none;
+    color: #3A89C9;
+}
+
+ul.ads li a:hover {
+    text-decoration: underline;
+    color: #2B4E72;
+}
+
+ul.ads li a:visited {
+    color: #9CC4E4;
+}
+
+ul.ads li.avito {
+    background: url(http://avito.ru/favicon.ico) center left no-repeat;
+}
+
+ul.ads li.slando {
+    background: url(http://slando.ru/favicon.ico) center left no-repeat;
+}
+
+ul.ads li.olx {
+    background: url(http://olx.ru/favicon.ico) center left no-repeat;
+}
+
+ul.ads li.irr {
+    background: url(http://irr.ru/favicon.ico) center left no-repeat;
+}
+
+ul.ads li.time {
+    color: #666;
+    
+    padding-left: 0px;
+    margin-left: 0px;
+
+    background: white;
+}
+
+ul.ads li.title {
+    color: #333;
+    font-size: 200%;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+div#footer {
+    text-align: right;
+}
+
+.relative {
+    position: relative;
+}
+
+.right_column {
+    float: left;
+    width: 300px;
+}
+
+#facebook {
+    position: absolute;
+    right: 0px;
+    top: 5px;
+    z-index: 10;
+    border: 1px solid #BEC8D3;
+    height: 117px;
+}
+
+#vkontakte {
+    position: absolute;
+    top: 5px;
+    right: 260px;
+    z-index: 10;
+}

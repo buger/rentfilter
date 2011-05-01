@@ -1,0 +1,85 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Ареда квартир от хозяина</title>       
+        <link  href="http://fonts.googleapis.com/css?family=Vollkorn:regular" rel="stylesheet" type="text/css" >
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
+        <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?8" />
+    </head>
+    <body>  
+        <div id="header">
+            <h1><a href="/">RentFilter.ru</a> &ndash; хотите снять квартиру от хозяина?</h1>
+            
+            <h2>Наши роботы прошли спецподготовку по борьбе с риэлторами</h2>
+        </div>
+        <div id="wrapper">            
+            {% if admin %}
+            <form action="/admin/agent_phones" method="POST" style="text-align: left">
+                <label>Телефоны риэлторов</label>
+                <br/>
+                <input placeholder="Причина" name="source" type="text" />
+                <br/>
+                <textarea name="phones" style="width: 600px; height: 200px;"></textarea>
+                <br/>
+                <input type="submit" />
+            </form>
+            {% endif %}
+            <div class="relative">
+                <div id="vkontakte">
+                    <!--
+                    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?23"></script>
+                    <div id="vk_groups"></div>
+                    <script type="text/javascript">
+                    VK.Widgets.Group("vk_groups", {mode: 1, width: "250", height: "150"}, 26047335);
+                    </script>
+                    -->
+                </div>
+
+                <div id="facebook">
+                    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRentFilter%2F202459219787387&amp;width=250&amp;colorscheme=light&amp;show_faces=false&amp;stream=false&amp;header=false&amp;height=117" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:117px;" allowTransparency="true"></iframe>
+                </div>
+
+                <ul class="ads">
+                    <li class="title">Последние обновления</li>
+                    {% for ad in ads %}                
+                    {% if ad.show_date %}
+                    <li></li>
+                    <li class="time">
+                        {% ifequal ad.added_at.day today.day %}
+                        <span>Сегодня</span>
+                        {% else %}
+                            {% ifequal ad.added_at.day yesterday.day %}
+                            <span>Вчера</span>
+                            {% else %}
+                            <span>{{ad.added_at|date:"d m"}}</span>
+                            {% endifequal %}
+                        {% endifequal %}
+                    </li>
+                    {% endif %}
+                    <li class="{{ad.source}}" title="{{ad.key.name}}">
+                        <a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
+                        {% if admin %}
+                        <div>
+                            <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
+                            <span>Телефон: {{ad.phone}}</span>
+                            <span>Источник: {{ad.source}}</span>        
+                            <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
+                        </div>
+                        {% endif %}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div id="footer">
+                {% if admin %}
+                <a href="{{logout_url}}">Выйти</a>
+                {% else %}
+                <a href="{{login_url}}">Вход для администраторов</a>
+                {% endif %}
+            </div>
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+    </body>
+</html>

@@ -1,0 +1,31 @@
+queue:
+- name: default
+  rate: 1/s
+  bucket_size: 1
+
+- name: slando
+  rate: 1/s
+  bucket_size: 1
+
+- name: avito
+  rate: 5/m
+  bucket_size: 1
+
+- name: olx
+  rate: 1/s
+  bucket_size: 1
+
+- name: emls
+  rate: 1/s
+  bucket_size: 1
+
+- name: irr
+  rate: 1/s
+  bucket_size: 1
+
+- name: vkontakte
+  rate: 1/s
+  bucket_size: 1
+
+- name: quick
+  rate: 10/s
