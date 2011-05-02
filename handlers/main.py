@@ -18,10 +18,10 @@ class MainPage(AppHandler):
         else:
             ads = Ad.all().order("-added_at").filter("rating =", 100)
 
-        if not users.is_current_user_admin():
-            ads = ads.filter("added_at <", today-timedelta(minutes = 20))
+#        if not users.is_current_user_admin():
+#            ads = ads.filter("added_at <", today-timedelta(minutes = 20))
 
-        ads = ads.fetch(100)
+        ads = ads.fetch(50)
 
         for index, ad in enumerate(ads):
             if index == 0 or (ad.added_at and ad.added_at.day != ads[index-1].added_at.day):

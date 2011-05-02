@@ -2,17 +2,32 @@
 <html>
     <head>
         <title>Ареда квартир от хозяина</title>       
-        <link  href="http://fonts.googleapis.com/css?family=Vollkorn:regular" rel="stylesheet" type="text/css" >
+        <link  href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css" >
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
-        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?8" />
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?9" />
     </head>
     <body>  
         <div id="header">
-            <h1><a href="/">RentFilter.ru</a> &ndash; хотите снять квартиру от хозяина?</h1>
-            
-            <h2>Наши роботы прошли спецподготовку по борьбе с риэлторами</h2>
+            <a href="/" class='logo'><span class='first'>Rent</span><span class='second'>Filter</span></a>
+
+            <div class="social">
+                <a href="javascript:;" class="about_link">О нас</a>
+                <a href="http://rentfilter.copiny.com/"  style="margin-right: 20px">Обратная связь</a>
+                <a href="http://vkontakte.ru/rentfilter" class="vkontakte">Вконтакте</a>
+                <a href="http://www.facebook.com/pages/RentFilter/202459219787387" class="facebook">Facebook</a>
+                <a href="http://twitter.com/rentfilter" class="twitter">Twitter</a>
+            </div>                        
+        </div>
+        <div id="about">
+            <div>
+                <h1>Снимите квартиру сами</h1>
+                <p class='desc'>
+                Не хотите платить агентам по недвижимости комиссию? RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.
+                </p>
+                <div class='images' style='display: none'><div></div></div>
+            </div>
         </div>
         <div id="wrapper">            
             {% if admin %}
@@ -27,52 +42,98 @@
             </form>
             {% endif %}
             <div class="relative">
+                <div id="left">
+                    <div id="ads_header">
+                        <h3>Объявления</h3>
+
+                        <div class="select_town">
+                            <span class='name'>Санкт-Петербург</span>
+                            <span class='arrow'>▾</span>
+
+                            <ul class="towns" style="display: none">
+                                <li>Другой город</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="ads">
+                        {% for ad in ads %}                
+                        {% if ad.show_date %}
+                        <li></li>
+                        <li class="time">
+                            {% ifequal ad.added_at.day today.day %}
+                            <span>Сегодня</span>
+                            {% else %}
+                                {% ifequal ad.added_at.day yesterday.day %}
+                                <span>Вчера</span>
+                                {% else %}
+                                <span>{{ad.added_at|date:"d m"}}</span>
+                                {% endifequal %}
+                            {% endifequal %}
+                        </li>
+                        {% endif %}
+                        <li class="{{ad.source}}" title="{{ad.title}}">
+                        <a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
+                            {% if admin %}
+                            <div>
+                                <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
+                                <span>Телефон: {{ad.phone}}</span>
+                                <span>Источник: {{ad.source}}</span>        
+                                <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
+                            </div>
+                            {% endif %}
+                        </li>
+                        {% endfor %}
+                        <li class="load_more"><a href="javascript:;">Загрузить еще</a></li>
+                    </ul>
+                </div>
+                <div id="right">
+                    <div id='thanks'>Сказать "Спасибо"</div>
+                    <div class='links'>
+                        <span class='title'>Как снять квартиру от хозяина?</span> 
+                        <ol>
+                            <li><a href="#">Изучите документы на квартиру</a></li>
+                            <li><a href="#">Скачайте и подпишите договор</a></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div id="footer">
+            <h3>Следите за нами в социальных сетях</h3>
+            <div class="widgets">
                 <div id="vkontakte">
-                    <!--
-                    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?23"></script>
+                    <script type="text/javascript" src="http://userapi.com/js/api/openapi.js?25"></script>
+
+                    <!-- VK Widget -->
                     <div id="vk_groups"></div>
                     <script type="text/javascript">
-                    VK.Widgets.Group("vk_groups", {mode: 1, width: "250", height: "150"}, 26047335);
+                    VK.Widgets.Group("vk_groups", {mode: 0, width: "400", height: "250"}, 26047335);
                     </script>
-                    -->
                 </div>
-
+                <div id="twitter">
+                    <a href="http://twitter.com/share" class="twitter-share-button" data-count="vertical" data-via="rentfilter">Tweet</a><script type="text/javascript" src="http://platform.twitter.com/widgets.js"></script>
+                </div>
                 <div id="facebook">
-                    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRentFilter%2F202459219787387&amp;width=250&amp;colorscheme=light&amp;show_faces=false&amp;stream=false&amp;header=false&amp;height=117" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:250px; height:117px;" allowTransparency="true"></iframe>
+                    <iframe src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2FRentFilter%2F202459219787387&amp;width=400&amp;colorscheme=light&amp;show_faces=true&amp;stream=false&amp;header=true&amp;height=250" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:400px; height:250px;" allowTransparency="true"></iframe>
                 </div>
-
-                <ul class="ads">
-                    <li class="title">Последние обновления</li>
-                    {% for ad in ads %}                
-                    {% if ad.show_date %}
-                    <li></li>
-                    <li class="time">
-                        {% ifequal ad.added_at.day today.day %}
-                        <span>Сегодня</span>
-                        {% else %}
-                            {% ifequal ad.added_at.day yesterday.day %}
-                            <span>Вчера</span>
-                            {% else %}
-                            <span>{{ad.added_at|date:"d m"}}</span>
-                            {% endifequal %}
-                        {% endifequal %}
-                    </li>
-                    {% endif %}
-                    <li class="{{ad.source}}" title="{{ad.key.name}}">
-                        <a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
-                        {% if admin %}
-                        <div>
-                            <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
-                            <span>Телефон: {{ad.phone}}</span>
-                            <span>Источник: {{ad.source}}</span>        
-                            <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
-                        </div>
-                        {% endif %}
-                    </li>
-                    {% endfor %}
-                </ul>
+                <div class="shower">
+                    <div></div>
+                </div>
+                <div class="about_us" name="about">
+                    <h3>О проекте</h3>
+                    <p>Зайдя на любой сайт с объявлениями об аренде квартир, вам придется позвонить не по одному десятку номеров, прежде чем найти объявление действительно от владельца квартиры, а не от риэлторского агентства. Но и это может случиться, только если вам очень повезет.</p>
+                    <p>RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.</p>
+                    <p style="white-space:nowrap;">Если у вас возникли вопросы пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:contacts@rentfilter.ru'>contacts@rentfilter.ru</a></p>
+                    <br/>
+                    <br/>
+                    <p>
+                        <a href="javascript:;" class='move_up'>Вверх!</a>                                                
+                        <span class="api">А еще у нас есть <a href="/api">API</a></span>
+                    </p>
+                </div>
             </div>
-            <div id="footer">
+            <div class="clear admin_links">
                 {% if admin %}
                 <a href="{{logout_url}}">Выйти</a>
                 {% else %}
@@ -80,6 +141,117 @@
                 {% endif %}
             </div>
         </div>
+
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script src="/js/images.js"></script>
+        <script src="/js/scale.raphael.js"></script>
+        <script src="/js/raphael-min.js"></script>
+        <script src="/js/jquery.tooltip.min.js"></script>        
+        <script src="/js/jquery.sap.min.js"></script>        
+        <script>
+            $('.about_link').bind('click', function(){
+                window.scrollTo(0, document.body.scrollHeight);
+            });
+
+            $('.move_up').bind('click', function(){
+                window.scrollTo(0, 0);
+            });
+
+            $('.ads li').tooltip({ delay: 500 });
+
+            $('.select_town').live('click', function(){
+                $(this).find('.towns').toggle();
+                $(this).toggleClass('opened');
+            });
+
+            function renderSVG(context, name, options) {
+                if (!options)
+                    options = {};
+
+                var set = context.set();
+                for (var i=0; i<images[name].length; i++) {
+                    try {
+                        set.push(context.path(images[name][i]));
+                    } catch (e) {}
+                }
+
+                set.attr({fill: "#022A4F", stroke: "none"}).attr(options);
+                
+                return set;
+            }
+
+            $('#about .images').show();
+            
+            var animations = [['head', -35], ['phone', 0], ['arrive', -45], ['donate', 5]];
+            var container = $('#about .images div')[0];
+            var main = new ScaleRaphael(container, 400, 300);
+            main.scaleAll(3);
+
+            function animate(frame) {
+                if (frame >= animations.length) {
+                    frame = 0;
+                }
+
+                $(container).parent().css({right: animations[frame][1]});
+                $(container).fadeIn('slow');
+
+                main.clear();
+                renderSVG(main, animations[frame][0]);                
+                
+                $(container).delay(2000).fadeOut('slow', function(){                    
+                    animate(frame+1);
+                });                
+            }
+
+            animate(0);
+
+            var shower = new ScaleRaphael($('.shower div')[0], 400, 400);                         
+            shower.scaleAll(3);
+            var set = renderSVG(shower, 'shower', {fill:"white"});            
+
+            var animate_shower = true;
+            set[0].node.onclick = function(){
+                if (animate_shower) {
+                    animate_shower = false;
+                    set.show();
+                } else {
+                    animate_shower = true;
+                }
+            }
+
+            var lines = [[8,7,6,5,4,3], [14,13,12,11,10,9], [20,19,18,17,16,15], [21,22,23,24,25,26]];
+
+            for (var j=0; j<lines.length; j++) {
+                (function(items){
+                    var active_index = 0;
+                    function animateShower(indexes){
+                        if (animate_shower) {
+                            if (active_index > indexes.length) {
+                                active_index = 0;
+                            }
+
+                            for(var i=0; i<indexes.length; i++) {
+                                set[indexes[i]].show();
+
+                                if (active_index == i) {
+                                    set[indexes[i]].hide();
+                                }
+                            }
+                            
+                            active_index += 1;
+
+                        }
+                        
+                        setTimeout(function(){
+                            animateShower(indexes);
+                        }, 50);
+                    }
+                    
+                    setTimeout(function(){
+                        animateShower(items);
+                    }, Math.floor(Math.random()*1000));
+                }(lines[j]));
+            }
+        </script>
     </body>
 </html>

@@ -1,88 +1,263 @@
+html {
+    height: 100%;
+    
+    background-image: url('/images/bg_gradient.png');
+    background-repeat: repeat-x;
+}
+
 body {
-    background: url(/images/bg.jpg) repeat-x;
-    text-align: center;
-    padding-top: 10px;
 }
 
 #header {
+    position: relative;
+    text-align: left;
+    padding: 20px 20px;
+
     width: 960px;
     margin: 0 auto;
-    position: relative;
 }
 
-#header h1 {
-    padding: 50px 0;   
+#header a.logo {
     text-align: center;
-    color: #333;
-    font-family: 'Volcorn', serif;
+    color: #000;
+    
+    font-family: 'Vollkorn', serif;
 
-    font-size: 40px;
-    font-style: normal;
-    font-weight: 400;
+    font-size: 25px;
     text-shadow: none;
     text-decoration: none;
     text-transform: none;
-    letter-spacing: 0em;
-    word-spacing: 0em;
+    letter-spacing: 0.05em;
     line-height: 1.2;    
+    
+    background: url(/images/key_hole.svg) no-repeat;
+    background-size: auto 50px;
+    padding: 10px 40px;    
 }
 
-#header h1 a {
-    color: #333;
+#header a.logo .first {
+    color: #444;
 }
 
-
-#header .slogan {
-    font-size: 40px;
-    font-family: 'Volcorn', serif;
-    color: #333;
+#header .social {
     position: absolute;
+    top: 25px;
+    right: 20px;
+}
 
+#header .social a {
+    margin-left: 20px;
+    color: #333;
+}
+
+#header .social a:hover {
+    color: #000;
+}
+
+#about {
+    text-align: left;
+
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+
+    background: #EFEDE8;
+}
+
+#about h1 {
+    margin: 30px 0;
+    font-size: 45px;
+    margin-top: 70px;
+    color: #073763;
+    text-transform: uppercase;
+    text-shadow: white 0 1px 0;    
+
+    font-family: Verdana, Helvetica, Arial;
+}
+
+#about > div {
+    padding: 20px 0px;
+    padding-right: 20px;
+    height: 300px;
+    padding-right: 330px;
+    
+    width: 650px;
+
+    margin: 0 auto;
+        
+    position: relative;
+}
+
+#about .images {
+    position: absolute;
     right: 0px;
-    top: 50px;    
+    top: 20px;    
+    width: 300px;
+    overflow: hidden;
+}
+
+#about .desc {
+    font-size: 15px;
+    font-style: italic;
+    line-height: 150%;
+    margin-bottom: 20px;    
 }
 
 div#wrapper {
     margin: 0 auto;
-    padding: 50px;
     padding-right: 0;
     padding-top: 0;
     width: 960px;
+    margin-bottom: 100px;
 
-    background: white;
     position: relative;
 }
 
-#header {
-    height: 380px;
-    padding-left: 200px;
-    
-    text-align: left;
+#right, #left {
+    float: left;
+    margin-top: 80px;
+    position: relative;
 }
 
-#header h2 {
+#left {
+    width: 680px;    
+}
+
+div#right {
+    width: 280px;
+}
+
+div#ads_header {
+    position: relative;
+}
+
+div#ads_header h3 {
     font-size: 30px;
-    font-family: arial;
     color: #333;
-    padding-top: 35px;
 }
 
-#header div {
-    margin-top: 40px;
-    font-size: 25px;
+div#ads_header .select_town {
+    color: #444;
+    position: absolute;
+    left: 220px;
+    top: -14px;
+    background: white;
+    padding: 15px;
+    font-size: 30px;
+    font-family: Arial;
+    cursor: pointer;    
+    z-index: 1;
+}
+
+div#ads_header .select_town .arrow {
+    color: #666;
+    margin-left: 10px;
+}
+
+div#ads_header .select_town:hover, div#ads_header .select_town.opened {
+    border-color: #aaa;
+    color: #333;
+
+    border: 1px solid #ccc;
+    padding: 14px;
+    background: #eee;
+    border-radius: 20px;
+}
+
+div#ads_header .select_town:hover .arrow, div#ads_header .select_town.opened .arrow {
+    color: #333;
+}
+
+div#ads_header .towns {
+    font-size: 16px;
+    color: #333;
+    cursor: pointer;    
+}
+
+div#ads_header .towns li {
+    padding-top: 20px;
+}
+
+div#ads_header .towns li:hover {
+    color: #000;
+}
+
+
+div#right #thanks {
+    font-size: 28px;
+    padding: 17px;
+    line-height: 120%;
+    border-radius: 30px; 
+    text-align: center;
+    border: 1px solid #ccc;
+    color: #222;
+    position: absolute;
+    top: -40px;
+    right: 0px;
+
+    background-image: -webkit-gradient(
+        linear,
+        left bottom,
+        left top,
+        color-stop(0.1, #BAD88F),
+        color-stop(0.68, #D1F2A5)
+    );
+    background-image: -moz-linear-gradient(
+        center bottom,
+        #BAD88F 10%,
+        #D1F2A5 68%
+    );
+    
+    cursor: pointer;
+    opacity: 0.9;
+}
+
+div#right #thanks:hover {
+    color: #000;
+    border-color: #bbb;
+    opacity: 1;
+}
+
+div#right .links {
+    margin-top: 105px;
+    color: #666;    
+}
+
+div#right .links li {
+    padding: 10px 0px;
+    margin-left: 40px;
+    font-size: 14px;
+    color: #666;
+    list-style: lower-greek;    
+}
+
+div#right .links a {
+    color: #666;
+}
+
+div#right .links a:hover {
+    color: #333;
+}
+
+div#right .links .title {
+    font-size: 19px;
+    white-space: nowrap;
+    color: #333;
+}
+
+div#right .links ol {
+    margin-top: 10px;
 }
 
 ul.ads {
     text-align: left;
-    margin-top: 20px;
-    position: relative;
-
-    float: left;
+    margin-top: 42px;
+    position: relative;    
 }
 
 ul.ads li {
     padding: 10px;
-    font-size: 153.9%;
+    font-size: 18px;
     padding-left: 25px;
     margin-left: 20px;
 }
@@ -90,6 +265,12 @@ ul.ads li {
 ul.ads li a {
     text-decoration: none;
     color: #3A89C9;
+
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 600px;
+    display: block;
 }
 
 ul.ads li a:hover {
@@ -122,8 +303,6 @@ ul.ads li.time {
     
     padding-left: 0px;
     margin-left: 0px;
-
-    background: white;
 }
 
 ul.ads li.title {
@@ -133,9 +312,71 @@ ul.ads li.title {
     margin-left: 0;
 }
 
-div#footer {
-    text-align: right;
+li.load_more {
+    text-align: center;
+    margin-top: 20px;
 }
+
+.load_more a {
+    background-color: #eee;
+    border-radius: 10px;
+    padding: 10px;
+    width: 300px;
+    margin-left: 120px;
+}
+
+div#footer {
+    position: relative;
+
+    clear: both;
+
+    height: 730px;
+    padding-bottom: 50px;
+    
+    background: #252622;
+    border-top: 1px solid #ccc;
+
+    overflow: hidden;
+}
+
+.shower {
+    position: absolute;
+    top: 300px;
+    left: 0px;
+    overflow: hidden;
+}
+
+.about_us {
+    position: absolute;
+    top: 280px;
+    right: 0px;
+    overflow: hidden;
+
+    width: 610px;
+}
+
+.about_us p {
+    margin-top: 10px;
+    color: #eee;
+    font-size: 16px;
+    line-height: 130%;
+}
+
+.about_us a {
+    color: #eee;
+}
+
+.about_us .api {
+    position: absolute;
+    right: 0px;
+}
+
+#footer .about_us h3 {
+    color: #eee;
+    text-align: left;
+    padding: 10px 0px;
+}
+
 
 .relative {
     position: relative;
@@ -146,18 +387,73 @@ div#footer {
     width: 300px;
 }
 
-#facebook {
-    position: absolute;
-    right: 0px;
-    top: 5px;
-    z-index: 10;
-    border: 1px solid #BEC8D3;
-    height: 117px;
+#vkontakte  {
+    margin-right: 40px;
 }
 
-#vkontakte {
-    position: absolute;
-    top: 5px;
-    right: 260px;
-    z-index: 10;
+#twitter {
+    margin-right: 40px;
 }
+
+#footer h3 {
+    font-size: 25px;
+    padding: 50px;
+    text-align: center;    
+    color: white;
+    
+    color: #ccc;
+    text-transform: uppercase;
+    text-shadow: #333 0 1px 0;    
+
+    font-family: Verdana;
+}
+
+.widgets {
+    position: relative;
+    background: inherit;
+    width: 960px;
+    margin: 0 auto;
+}
+
+.widgets > div {
+    float: left;
+}
+
+#footer .admin_links {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+}
+
+#footer .move_up {
+    text-decoration: none;
+    color: #aaa;
+    font-size: 20px;
+}
+
+#footer .move_up:hover {
+    text-decoration: underline;
+}
+
+#footer .admin_links a {
+    color: #333;    
+}
+
+#facebook, #vkontakte {
+    background: white;
+    width: 400px;
+}
+
+#tooltip {
+	position: absolute;
+	z-index: 3000;
+	border: 1px solid #ccc;
+    border-radius: 5px;
+	background-color: #eee;
+	padding: 5px;
+	opacity: 0.95;
+}
+
+#tooltip h3, #tooltip div { margin: 0; }
+
+.clear {clear:both}
