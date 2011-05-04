@@ -10,23 +10,24 @@
     </head>
     <body>  
         <div id="header">
-            <a href="/" class='logo'><span class='first'>Rent</span><span class='second'>Filter</span></a>
+            <div>
+                <a href="/" class='logo'><span class='first'>Rent</span><span class='second'>Filter</span></a>
 
-            <div class="social">
-                <a href="javascript:;" class="about_link">О нас</a>
-                <a href="http://rentfilter.copiny.com/"  style="margin-right: 20px">Обратная связь</a>
-                <a href="http://vkontakte.ru/rentfilter" class="vkontakte">Вконтакте</a>
-                <a href="http://www.facebook.com/pages/RentFilter/202459219787387" class="facebook">Facebook</a>
-                <a href="http://twitter.com/rentfilter" class="twitter">Twitter</a>
-            </div>                        
+                <div class="social">
+                    <a href="http://vkontakte.ru/rentfilter" class="vkontakte">Вконтакте</a>
+                    <a href="http://www.facebook.com/pages/RentFilter/202459219787387" class="facebook">Facebook</a>
+                    <a href="http://twitter.com/rentfilter" class="twitter">Twitter</a>
+                </div>                        
+            </div>
         </div>
         <div id="about">
             <div>
-                <h1>Снимите квартиру сами</h1>
+                <h1>Снимите квартиру<div>без помощи риэлторов</div></h1>
                 <p class='desc'>
                 Не хотите платить агентам по недвижимости комиссию? RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.
                 </p>
                 <div class='images' style='display: none'><div></div></div>
+                <div id='thanks'>Сказать "Спасибо"</div>
             </div>
         </div>
         <div id="wrapper">            
@@ -44,8 +45,6 @@
             <div class="relative">
                 <div id="left">
                     <div id="ads_header">
-                        <h3>Объявления</h3>
-
                         <div class="select_town">
                             <span class='name'>Санкт-Петербург</span>
                             <span class='arrow'>▾</span>
@@ -87,13 +86,19 @@
                     </ul>
                 </div>
                 <div id="right">
-                    <div id='thanks'>Сказать "Спасибо"</div>
                     <div class='links'>
                         <span class='title'>Как снять квартиру от хозяина?</span> 
                         <ol>
-                            <li><a href="#">Изучите документы на квартиру</a></li>
-                            <li><a href="#">Скачайте и подпишите договор</a></li>
+                            <li><a href="#">Найти объявление</a></li>
+                            <li><a href="#">Связаться с хозяином</a></li>
+                            <li><a href="#">Изучить документы на квартиру</a></li>
+                            <li><a href="#">Подсать договор</a></li>
                         </ol>
+                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта города</div>
+                        <img src='/images/spb_map.png' style="width:280px; border: 1px solid #ccc; margin-top: 10px;" />
+                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта метро</div>
+                        <img src='http://metro.yoip.ru/sanktpeterburg.gif' style="width:280px; border: 1px solid #eee; margin-top: 10px;" />
+
                     </div>
                 </div>
             </div>
@@ -125,6 +130,7 @@
                     <p>Зайдя на любой сайт с объявлениями об аренде квартир, вам придется позвонить не по одному десятку номеров, прежде чем найти объявление действительно от владельца квартиры, а не от риэлторского агентства. Но и это может случиться, только если вам очень повезет.</p>
                     <p>RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.</p>
                     <p style="white-space:nowrap;">Если у вас возникли вопросы пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:contacts@rentfilter.ru'>contacts@rentfilter.ru</a></p>
+                    <br/>
                     <br/>
                     <br/>
                     <p>
@@ -175,17 +181,17 @@
                     } catch (e) {}
                 }
 
-                set.attr({fill: "#022A4F", stroke: "none"}).attr(options);
+                set.attr({fill: "#403B33", stroke: "none"}).attr(options);
                 
                 return set;
             }
 
             $('#about .images').show();
             
-            var animations = [['head', -35], ['phone', 0], ['arrive', -45], ['donate', 5]];
+            var animations = [['head', -70], ['phone', -20], ['arrive', -110], ['donate', -20]];
             var container = $('#about .images div')[0];
-            var main = new ScaleRaphael(container, 400, 300);
-            main.scaleAll(3);
+            var main = new ScaleRaphael(container, 500, 500);
+            main.scaleAll(3.8);
 
             function animate(frame) {
                 if (frame >= animations.length) {

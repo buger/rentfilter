@@ -9,6 +9,11 @@ body {
 }
 
 #header {
+    background: #EDEBE6;
+    border-top: 5px solid #403B33;
+}
+
+#header > div {
     position: relative;
     text-align: left;
     padding: 20px 20px;
@@ -30,9 +35,9 @@ body {
     letter-spacing: 0.05em;
     line-height: 1.2;    
     
-    background: url(/images/key_hole.svg) no-repeat;
-    background-size: auto 50px;
-    padding: 10px 40px;    
+    background: url(/images/key_hole.svg) 10px 5px no-repeat;
+    background-size: auto 30px;
+    padding: 10px 30px;    
 }
 
 #header a.logo .first {
@@ -42,12 +47,13 @@ body {
 #header .social {
     position: absolute;
     top: 25px;
-    right: 20px;
+    left: 368px;    
 }
 
 #header .social a {
     margin-left: 20px;
-    color: #333;
+    color: #555;
+    text-decoration: none;
 }
 
 #header .social a:hover {
@@ -57,50 +63,58 @@ body {
 #about {
     text-align: left;
 
-    border: 1px solid #ccc;
     border-left: 0;
     border-right: 0;
+    background: #EDEBE6;
 
-    background: #EFEDE8;
+    border-bottom: 1px solid #ccc;
 }
 
 #about h1 {
     margin: 30px 0;
-    font-size: 45px;
-    margin-top: 70px;
+    margin-top: 0px;
+    font-size: 55px;
     color: #073763;
     text-transform: uppercase;
-    text-shadow: white 0 1px 0;    
 
-    font-family: Verdana, Helvetica, Arial;
+    font-family: Arial, Verdana, Helvetica, Arial;
+}
+
+#about h1 > div {
+    color: #666;
+    font-size: 30px;
 }
 
 #about > div {
     padding: 20px 0px;
     padding-right: 20px;
     height: 300px;
-    padding-right: 330px;
+    padding-right: 380px;
     
-    width: 650px;
+    width: 600px;
 
     margin: 0 auto;
         
     position: relative;
+    
+    border-right: 0px;
+    border-left: 0px;
 }
 
 #about .images {
     position: absolute;
     right: 0px;
-    top: 20px;    
-    width: 300px;
+    top: -60px;    
+    width: 400px;
     overflow: hidden;
 }
 
 #about .desc {
     font-size: 15px;
-    font-style: italic;
     line-height: 150%;
     margin-bottom: 20px;    
+    color: #555;
+    font-family: Arial;
 }
 
 div#wrapper {
@@ -114,36 +128,38 @@ div#wrapper {
 }
 
 #right, #left {
-    float: left;
-    margin-top: 80px;
+    float: right;
+    margin-top: 50px;
     position: relative;
 }
 
 #left {
-    width: 680px;    
+    width: 620px; 
+    margin-top: 40px;
 }
 
 div#right {
-    width: 280px;
+    width: 340px;
 }
 
 div#ads_header {
     position: relative;
+    padding-bottom: 50px;
 }
 
 div#ads_header h3 {
     font-size: 30px;
-    color: #333;
+    color: #000;
 }
 
 div#ads_header .select_town {
     color: #444;
     position: absolute;
-    left: 220px;
-    top: -14px;
+    left: -15px;
+    top: -8px;
     background: white;
     padding: 15px;
-    font-size: 30px;
+    font-size: 25px;
     font-family: Arial;
     cursor: pointer;    
     z-index: 1;
@@ -183,17 +199,17 @@ div#ads_header .towns li:hover {
 }
 
 
-div#right #thanks {
+#thanks {
     font-size: 28px;
     padding: 17px;
     line-height: 120%;
     border-radius: 30px; 
     text-align: center;
     border: 1px solid #ccc;
-    color: #222;
+    color: #333;
     position: absolute;
-    top: -40px;
-    right: 0px;
+    top: 250px;
+    left: 0px;
 
     background-image: -webkit-gradient(
         linear,
@@ -209,7 +225,6 @@ div#right #thanks {
     );
     
     cursor: pointer;
-    opacity: 0.9;
 }
 
 div#right #thanks:hover {
@@ -219,7 +234,7 @@ div#right #thanks:hover {
 }
 
 div#right .links {
-    margin-top: 105px;
+    margin-top: 0px;
     color: #666;    
 }
 
@@ -228,7 +243,7 @@ div#right .links li {
     margin-left: 40px;
     font-size: 14px;
     color: #666;
-    list-style: lower-greek;    
+    list-style: circle;    
 }
 
 div#right .links a {
@@ -251,7 +266,7 @@ div#right .links ol {
 
 ul.ads {
     text-align: left;
-    margin-top: 42px;
+    margin-top: 0px;
     position: relative;    
 }
 
@@ -348,7 +363,7 @@ div#footer {
 
 .about_us {
     position: absolute;
-    top: 280px;
+    top: 285px;
     right: 0px;
     overflow: hidden;
 
