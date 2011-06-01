@@ -1,5 +1,5 @@
 # encoding: utf-8
-from BeautifulSoup import BeautifulSoup
+from bs4 import BeautifulSoup
 import re
 import urllib2
 import hashlib
@@ -11,12 +11,12 @@ import cookielib
 import md5
 from datetime import datetime
 
-rPHONE = re.compile("(?:\d[\s\-\)\(\dx\.]{0,2}){6,12}")
-rMOBILE_PHONE = re.compile("9(?:\d[\s\-\)\(\dx\.]{0,2}){6,12}")
+rPHONE = re.compile("(?:\d[ \-\)\(\dx\.]{0,2}(?!\n)){6,12}")
+rMOBILE_PHONE = re.compile("9(?:\d[ \-\)\(\dx\.]{0,2}){6,12}")
 rREPLACE = re.compile("\D")
 rPHONE_PREFIX = re.compile("^[87]")
 rCITY_PREFIX = re.compile("^812")
-rAGENT = re.compile("(агенство|комиссия|скидки по комиссии|комиссию)")
+rAGENT = re.compile("(агенство|комиссия|скидки по комиссии|комиссию|комиссия агенства)")
 rOWNER = re.compile("(хозяина|хозяин|без комиссии|без агенства|агенства не|частное|агентам не|без посредников|не агенство)")
 
 class MozillaEmulator(object):
@@ -60,7 +60,7 @@ class MozillaEmulator(object):
         https_handler = urllib2.HTTPSHandler(debuglevel=self.debug)
 
         u = urllib2.build_opener(http_handler,https_handler,urllib2.HTTPCookieProcessor(self.cookies),redirector)
-        u.addheaders = [('User-Agent','Mozilla/5.0 (Windows; U; Windows NT 5.1; hu-HU; rv:1.7.8) Gecko/20050511 Firefox/1.0.4')]
+        u.addheaders = [('User-Agent','Opera/9.80 (X11; Linux i686; U; ja) Presto/2.7.62 Version/11.01')]
         if not postdata is None:
             req.add_data(postdata)
         return (req,u)
@@ -186,11 +186,11 @@ class BaseAdParser:
 
         self.page = BeautifulSoup(content)
 
+
     def parse(self):
         self.title = re.sub(u"\n", "", self.get_title().strip().lower())
 
         self.content = self.get_content().lower().strip()
-
 
         self.md5 = self.get_md5(self.content)
 
@@ -219,6 +219,8 @@ class BaseAdParser:
         contact = unicode(self.contact).encode('utf-8', 'ignore')
 
         content_for_search = "%s %s %s" % (content, contact, title)
+
+        content_for_search = content_for_search.decode('utf-8').lower().encode('utf-8')
 
         if not self.agent and rOWNER.search(content_for_search):
             self.agent = False
@@ -311,7 +313,7 @@ class SlandoAdParser(BaseAdParser):
 
     def is_agent(self):
         try:
-            is_agent = self.page.find('div', 'openpanel').find('a', 'current')
+            is_agent = self.page.find('div', 'openpanel subcategories abscorners lightyellow').find('a', 'current')
             is_agent = is_agent.contents[0].strip().lower()
 
             return is_agent == u'квартиры от агентств'
@@ -375,9 +377,9 @@ class OlxAdParser(BaseAdParser):
 
 
     def get_content(self):
-        contents = self.page.find('div', id='description-text').contents
+        contents = self.page.find('div', id='description-text')
 
-        return "".join([item.string or "" for item in contents])
+        return str(contents)
 
     def get_date(self):
         date = self.get_info(u"дата:")
@@ -435,14 +437,14 @@ class IrrAdParser(BaseAdParser):
         return "irr"
 
     def get_content(self):
-        contents = self.page.find('div', 'additional-text').find('p').contents
+        contents = self.page.find('div', 'brd-md additional-text').find('p').contents
         return "".join([item.string or "" for item in contents])
 
     def is_agent(self):
         return False
 
     def get_contact(self):
-        contents = self.page.find('div', 'contacts-info').find('li', 'ico-phone')
+        contents = self.page.find('div', 'brd-md contacts-info').find('li', 'ico-phone')
         return "".join([item.string or "" for item in contents])
 
     def get_date(self):
@@ -499,10 +501,13 @@ class SiteParser:
 
         content = MozillaEmulator().download(self.url)
 
+        content = re.sub("<noindex\/?>", "", content)
+
         self.page = BeautifulSoup(content)
 
     def parse(self):
         links = self.get_list()
+
         return set(links)
 
 
@@ -531,7 +536,7 @@ class SlandoParser(SiteParser):
 
     def get_list(self):
         ads = []
-        links = self.page.findAll("a", "preserve_search_term")
+        links = self.page.findAll("a", "desc preserve_search_term")
 
         for link in links:
             contents = "".join([item.string or "" for item in link.contents])
@@ -549,7 +554,9 @@ class OlxParser(SiteParser):
 
     def get_list(self):
         ads = []
-        links = self.page.findAll("div", "c-2")
+        links = self.page.findAll("div", "c-2 listing-profile")
+
+
 
         for link in links:
             a = link.find('a')
@@ -619,8 +626,12 @@ class IrrParser(SiteParser):
         links = self.page.findAll('a')
 
         for link in links:
-            if re.search('advert/', link['href']) and rRENT_LINKS.search(link.string.lower().strip()):
-               ads.append("http://www.irr.ru%s" % link['href'])
+            if re.search('advert/', link['href']):
+                contents = link.contents
+                contents = "".join([item.string or "" for item in contents])
+
+                if rRENT_LINKS.search(contents.lower().strip()) is None:
+                    ads.append("http://www.irr.ru%s" % link['href'])
 
         return ads
 

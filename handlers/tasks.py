@@ -13,7 +13,7 @@ REGIONS = {
       'slando': 'http://nedvizhimost.slando.spb.ru/sankt-peterburg/1572_1.html',
       'slando_agent': 'http://nedvizhimost.slando.spb.ru/sankt-peterburg/1573_1.html',
       'olx': "http://saintpetersburg.olx.ru/cat-363",
-      'irr': "http://saint-petersburg.irr.ru/real-estate/rent/search/offertype=сдам/sourcefrom=1/page1/"
+      'irr': "http://saint-petersburg.irr.ru/real-estate/rent/search/sourcefrom=1/page1/"
   }
 }
 
@@ -102,10 +102,7 @@ class CheckAd(AppHandler):
     def post(self):
         def descrise_rating(ads, amount = 20):
             for a in ads:
-                a.rating -= amount
-
-                if a.rating < 0:
-                    a.rating = 0
+                a.rating = 0
 
             return ads
 
@@ -130,7 +127,7 @@ class CheckAd(AppHandler):
             ad.rating = 0
             ad.put()
 
-        if len(ads) > 4:
+        if len(ads) > 7:
             ads = descrise_rating(ads)
 
         db.put(ads)
@@ -140,8 +137,9 @@ route('/ad/check', CheckAd)
 
 class DeleteAD(AppHandler):
     def get(self, key):
-        key = db.Key(key)
-        db.delete(key)
+        ad = Ad.get(db.Key(key))
+        ad.deleted = True
+        ad.put()
 
         self.redirect("/")
 

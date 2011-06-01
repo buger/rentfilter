@@ -40,11 +40,11 @@ print " ".join(arr)
 
 exit()
 """
-#print adsparser.parse("http://nedvizhimost.slando.spb.ru/sankt-peterburg/odnokomnatnaya-kvartira-tolko-russkim_P_34406516.html")
+#print adsparser.parse("http://saintpetersburg.olx.ru/1-iid-211106156")
 #exit()
 
-#urls = adsparser.ads_list("http://www.avito.ru/catalog/kvartiry-24/sankt-peterburg-653240/params.201_1060").parse()
-urls = adsparser.ads_list("http://www.avito.ru/catalog/kvartiry-24/sankt-peterburg-653240/params.201_1060?user=1").parse()
+urls = adsparser.ads_list("http://saintpetersburg.olx.ru/cat-363").parse()
+#urls = adsparser.ads_list("http://www.avito.ru/catalog/kvartiry-24/sankt-peterburg-653240/params.201_1060?user=1").parse()
 
 for url in urls:
     print url

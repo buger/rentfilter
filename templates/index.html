@@ -2,11 +2,11 @@
 <html>
     <head>
         <title>Ареда квартир от хозяина</title>       
-        <link  href="http://fonts.googleapis.com/css?family=Vollkorn" rel="stylesheet" type="text/css" >
+        <link href='http://fonts.googleapis.com/css?family=PT+Sans:regular,bold' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssreset/reset-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
-        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?9" />
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?10" />
     </head>
     <body>  
         <div id="header">
@@ -44,7 +44,7 @@
             {% endif %}
             <div class="relative">
                 <div id="left">
-                    <div id="ads_header">
+                    <div id="left_header">
                         <div class="select_town">
                             <span class='name'>Санкт-Петербург</span>
                             <span class='arrow'>▾</span>
@@ -55,34 +55,8 @@
                         </div>
                     </div>
                     <ul class="ads">
-                        {% for ad in ads %}                
-                        {% if ad.show_date %}
-                        <li></li>
-                        <li class="time">
-                            {% ifequal ad.added_at.day today.day %}
-                            <span>Сегодня</span>
-                            {% else %}
-                                {% ifequal ad.added_at.day yesterday.day %}
-                                <span>Вчера</span>
-                                {% else %}
-                                <span>{{ad.added_at|date:"d m"}}</span>
-                                {% endifequal %}
-                            {% endifequal %}
-                        </li>
-                        {% endif %}
-                        <li class="{{ad.source}}" title="{{ad.title}}">
-                        <a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
-                            {% if admin %}
-                            <div>
-                                <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
-                                <span>Телефон: {{ad.phone}}</span>
-                                <span>Источник: {{ad.source}}</span>        
-                                <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
-                            </div>
-                            {% endif %}
-                        </li>
-                        {% endfor %}
-                        <li class="load_more"><a href="javascript:;">Загрузить еще</a></li>
+                        {% include 'ads.html' %} 
+                        <li class="load_more"><a data-cursor='{{cursor}}'>Загрузить еще</a></li>
                     </ul>
                 </div>
                 <div id="right">
@@ -95,9 +69,9 @@
                             <li><a href="#">Подсать договор</a></li>
                         </ol>
                         <div class="title" style="margin-top: 50px; font-size: 14px;">Карта города</div>
-                        <img src='/images/spb_map.png' style="width:280px; border: 1px solid #ccc; margin-top: 10px;" />
+                        <a href="http://goo.gl/maps/AYKn" target="_blank" class='map'><img src='/images/spb_map.png'/></a>
                         <div class="title" style="margin-top: 50px; font-size: 14px;">Карта метро</div>
-                        <img src='http://metro.yoip.ru/sanktpeterburg.gif' style="width:280px; border: 1px solid #eee; margin-top: 10px;" />
+                        <a href="http://metro.yandex.ru/spb/" target="_blank" class='map'><img src='http://yandex.st//metro-data/maps/spb.gif?1.0.17' /></a>
 
                     </div>
                 </div>
@@ -155,6 +129,34 @@
         <script src="/js/jquery.tooltip.min.js"></script>        
         <script src="/js/jquery.sap.min.js"></script>        
         <script>
+            $('.load_more a').bind('click', function(){
+                var self = this;
+                var cursor = $(this).data('cursor');
+
+                $.getJSON('/', {cursor: cursor }, 
+                    function(data){
+                        if (data.html.length <= 1) {
+                            return $(self.parentNode).hide();
+                        }
+
+                        $(self).data('cursor', data.cursor);
+                        
+                        var latest_time = $(self.parentNode).prevAll('li.time').find('span')[0].innerHTML;
+                        
+                        var temp = $("<div/>").append(data.html);
+                        var first_time = temp.find('li.time:first');
+                        if (first_time.find('span')[0].innerHTML == latest_time) {
+                            first_time.prev().remove();
+                            first_time.remove();
+                        }
+
+                        console.log(temp);
+
+                        $(self.parentNode).before(temp[0].innerHTML);
+                    }                    
+                );
+            });
+
             $('.about_link').bind('click', function(){
                 window.scrollTo(0, document.body.scrollHeight);
             });

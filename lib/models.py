@@ -38,6 +38,8 @@ class Ad(db.Expando):
 
     region = db.StringProperty(default = 'spb')
 
+    deleted = db.BooleanProperty(default = False)
+
     def count_by_phone(self):
         return Ad.all().filter("phone =", self.phone).count()
 
@@ -51,3 +53,35 @@ class Ad(db.Expando):
             return 'http://olx.ru/favicon.ico'
         elif self.source == 'slando':
             return 'http://slando.ru/favicon.ico'
+
+import datetime
+import time
+
+SIMPLE_TYPES = (int, long, float, bool, dict, basestring, list)
+
+def model_to_json(model):
+    output = {}
+
+    for key, prop in model.properties().iteritems():
+        value = getattr(model, key)
+
+        if value is None or isinstance(value, SIMPLE_TYPES):
+            output[key] = value
+        elif isinstance(value, datetime.date):
+            # Convert date/datetime to ms-since-epoch ("new Date()").
+            ms = time.mktime(value.utctimetuple()) * 1000
+            ms += getattr(value, 'microseconds', 0) / 1000
+            output[key] = int(ms)
+        elif isinstance(value, db.GeoPt):
+            output[key] = {'lat': value.lat, 'lon': value.lon}
+        elif isinstance(value, db.Model):
+            output[key] = ''#model_to_json(value)
+        else:
+            raise ValueError('cannot encode ' + repr(prop))
+
+    try:
+        output['key'] = str(model.key())
+    except:
+        pass
+
+    return output

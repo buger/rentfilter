@@ -1,0 +1,27 @@
+{% for ad in ads %}                
+{% if ad.show_date %}
+<li></li>
+<li class="time">
+    {% ifequal ad.added_at.day today.day %}
+    <span>Сегодня</span>
+    {% else %}
+        {% ifequal ad.added_at.day yesterday.day %}
+        <span>Вчера</span>
+        {% else %}
+        <span>{{ad.added_at|date:"d m"}}</span>
+        {% endifequal %}
+    {% endifequal %}
+</li>
+{% endif %}
+<li class="{{ad.source}}" title="{{ad.title}}">
+<a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
+    {% if admin %}
+    <div>
+        <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
+        <span>Телефон: {{ad.phone}}</span>
+        <span>Источник: {{ad.source}}</span>        
+        <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
+    </div>
+    {% endif %}
+</li>
+{% endfor %}
