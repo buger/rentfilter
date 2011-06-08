@@ -511,7 +511,7 @@ class SiteParser:
         return set(links)
 
 
-rRENT_LINKS = re.compile(u'(ищу квартиру|домик|домики|посуточно|часы|сут\.|садовый дом|суток|посуточная|дома|сниму|снимет|снимет|снимут|помогу|дача|дачу|гостиница|отл дом|дом на лето|сдам дом|аренда дома|коттедж|номер)')
+rRENT_LINKS = re.compile(u'(ищу квартиру|домик|домики|часы|сут\.|садовый дом|дома|сниму|снимет|снимет|снимут|помогу|дача|дачу|гостиница|отл дом|дом на лето|сдам дом|аренда дома|коттедж|номер)')
 
 class AvitoParser(SiteParser):
     def get_paged_url(self):
@@ -556,10 +556,9 @@ class OlxParser(SiteParser):
         ads = []
         links = self.page.findAll("div", "c-2 listing-profile")
 
-
-
         for link in links:
             a = link.find('a')
+
             if rRENT_LINKS.search(a.string.strip().lower()) is None:
                 ads.append(link.find('a')['href'])
 

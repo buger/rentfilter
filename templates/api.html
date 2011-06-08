@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
         <link type="text/css" rel="stylesheet" media="all" href="/css/facebox.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?12" />
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?11" />
     </head>
     <body>  
         <div id="header">
@@ -46,56 +46,41 @@
             </div>
         </div>
         <div id="wrapper">            
-            {% if admin %}
-            <form action="/admin/agent_phones" method="POST" style="text-align: left">
-                <label>Телефоны риэлторов</label>
-                <br/>
-                <input placeholder="Причина" name="source" type="text" />
-                <br/>
-                <textarea name="phones" style="width: 600px; height: 200px;"></textarea>
-                <br/>
-                <input type="submit" />
-            </form>
-            {% endif %}
-            <div class="relative">
-                <div id="left">
-                    <div id="left_header">
-                        <div class="select_town">
-                            <span class='name'>Санкт-Петербург</span>
-                            <span class='arrow'>▾</span>
-
-                            <ul class="towns" style="display: none">
-                                <li id="other_towns">Другой город</li>
-                            </ul>
-                        </div>
-                        
-                        <a href="http://feeds.feedburner.com/rentfilter/HQvl" class='rss' style="display: none"></a>
-
-                        <div class="filter" {% if hide_filter %}style="display:none"{% endif %}>
-                            <label>Тид аренды:</label>
-                            <a href="javascript:;" class='active' data-filter='monthly'>Долгосрочная</a>
-                            <a href="javascript:;" data-filter='hourly'>Посуточная</a>
-                        </div>
-                    </div>
-                    <ul class="estate_links">
-                        {% include 'ads.html' %}
-                        <li class="load_more" {% if hide_controls %}style='display:none'{% endif %}><a data-cursor='{{cursor}}' data-start-from='{{start_from}}'>Загрузить еще</a></li>
-                    </ul>
+            <div class="relative article">
+                <h1>Что может наш API и с чем его едят</h1>
+                <div class="block" id="call">
+                    <h3>API-ключ</h3>
+                    <p>На данный момент API находится в стадии тестирования и доступен только по приглашениям. Если у вас есть идеи по его использованию, пишите на адрес <a href='mailto:hello@rentfilter.ru'>hello@rentfilter.ru</a>.</p>
                 </div>
-                <div id="right">
-                    <div class='links'>
-                        <span class='title'>Как снять квартиру от хозяина</span> 
-                        <ol>
-                            <li><a href="/faq#call">Связаться с хозяином</a></li>
-                            <li><a href="/faq#examine">Изучить документы на квартиру</a></li>
-                            <li><a href="/faq#sign">Подписать договор</a></li>
-                        </ol>
-                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта города</div>
-                        <a href="http://goo.gl/maps/AYKn" target="_blank" class='map'><img src='/images/spb_map.png'/></a>
-                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта метро</div>
-                        <a href="http://metro.yandex.ru/spb/" target="_blank" class='map'><img src='http://yandex.st//metro-data/maps/spb.gif?1.0.17' /></a>
 
-                    </div>
+                <div class="block" id="call">
+                    <h3>Интеграция с вашим сайтом</h3>
+                    <p>
+                        Если у вас есть сайт объявлений, мы поможем вам повысить качество фильтрации объявлений. По вопросам сотрудничества обращайтесь по этому адреcу <a href='mailto:hello@rentfilter.ru'>hello@rentfilter.ru</a>.
+                    </p>
+                </div>
+
+                <div class="block" id="call">
+                    <h3>Проверка телефона</h3>
+                    <p>
+                        <code>/api/check_by_phone?phone=9811233433</code>
+                    </p>
+                    <p>
+                        <div>Ответ:</div>
+                        <br />
+                        <code>{'agent':True, 'reason':'Найдено 10 разных объявлений по данному телефону', 'same_ads':['http://link_to_ad.com',...]}</code>
+                    </p>
+                </div>
+                <div class="block" id="call">
+                    <h3>Проверка по URL объявления</h3>
+                    <p>
+                        <code>/api/check_by_url?url=link_to_ad</code>
+                    </p>
+                    <p>
+                        <div>Ответ:</div>
+                        <br />
+                        <code>{'agent': False, 'same_ads':['http://link_to_ad.com',...]}</code>
+                    </p>
                 </div>
             </div>
             <div class="clear"></div>
@@ -125,7 +110,7 @@
                     <h3>О проекте</h3>
                     <p>Зайдя на любой сайт с объявлениями об аренде квартир, вам придется позвонить не по одному десятку номеров, прежде чем найти объявление действительно от владельца квартиры, а не от риэлторского агентства. Но и это может случиться, только если вам очень повезет.</p>
                     <p>RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.</p>
-                    <p style="white-space:nowrap;">Если у вас возникли вопросы, пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:hello@rentfilter.ru'>hello@rentfilter.ru</a></p>
+                    <p style="white-space:nowrap;">Если у вас возникли, вопросы пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:contacts@rentfilter.ru'>contacts@rentfilter.ru</a></p>
                     <br/>
                     <br/>
                     <br/>
@@ -162,7 +147,7 @@
         <script src="/js/raphael-min.js"></script>
         <script src="/js/jquery.tooltip.min.js"></script>        
         <script src="/js/facebox.js"></script>
-        <script src="/js/app.js?1"></script>
+        <script src="/js/app.js"></script>
 
         <!-- Yandex.Metrika counter --><div style="display:none;"><script type="text/javascript">(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7309270 = new Ya.Metrika({id:7309270, accurateTrackBounce:true}); } catch(e) { } }); })(window, 'yandex_metrika_callbacks');</script></div><script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><noscript><div><img src="//mc.yandex.ru/watch/7309270" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
     </body>

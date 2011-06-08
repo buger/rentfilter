@@ -32,6 +32,12 @@ indexes:
 
 - kind: Ad
   properties:
+  - name: parent_url
+  - name: added_at
+    direction: desc
+
+- kind: Ad
+  properties:
   - name: phone
   - name: created_at
     direction: desc

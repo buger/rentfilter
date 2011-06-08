@@ -141,9 +141,27 @@ class DeleteAD(AppHandler):
         ad.deleted = True
         ad.put()
 
+        memcache.delete("main_page_5")
+
         self.redirect("/")
 
 route('/admin/ad/delete/:key', DeleteAD)
+
+class UnMarkAD(AppHandler):
+    def get(self, phone):
+        ads = Ad.all().filter("phone =", phone)
+        ads = ads.fetch(1000)
+
+        for ad in ads:
+            ad.rating = 100
+
+        db.put(ads)
+
+        memcache.delete("main_page_5")
+
+        self.redirect("/")
+
+route('/admin/ad/unmark/:phone', UnMarkAD)
 
 class MarkAD(AppHandler):
     def get(self, key):
@@ -153,6 +171,8 @@ class MarkAD(AppHandler):
         ad.put()
 
         taskqueue.add(queue_name = 'quick', url = '/ad/check', params = {'key': ad.key().name()})
+
+        memcache.delete("main_page_5")
 
         self.redirect("/")
 

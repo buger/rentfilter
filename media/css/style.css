@@ -9,7 +9,7 @@ body {
 }
 
 #header {
-    background: #EDEBE6;
+    background: #F2F2F2;
     border-top: 5px solid #403B33;
     height: 60px;
 }
@@ -68,7 +68,7 @@ body {
 
     border-left: 0;
     border-right: 0;
-    background: #EDEBE6;
+    background: #F2F2F2;
 
     border-bottom: 1px solid #ccc;
 }
@@ -147,7 +147,8 @@ div#right {
 
 div#left_header {
     position: relative;
-    padding-bottom: 50px;
+    padding-bottom: 10px;
+    height: 30px;
 }
 
 div#left_header h3 {
@@ -158,7 +159,7 @@ div#left_header h3 {
 div#left_header .select_town {
     color: #444;
     position: absolute;
-    left: -15px
+    left: -15px;
     border-color: #aaa;;
     top: -8px;
     background: white;
@@ -202,6 +203,29 @@ div#left_header .towns li:hover {
     color: #000;
 }
 
+div#left_header .filter {
+    margin-left: 280px;
+    font-size: 16px;
+    white-space: nowrap;
+    padding-top: 12px;
+}
+
+div#left_header .filter label {
+    margin-right: 10px;
+    color: #333;
+}
+
+div#left_header .filter a {
+    margin-right: 10px;
+    text-decoration: none;
+    color: #aaa;
+    font-family: Arial;
+}
+
+div#left_header .filter a.active {
+    font-weight: bold;
+    color: #333;
+}
 
 #thanks {
     font-size: 28px;
@@ -214,6 +238,7 @@ div#left_header .towns li:hover {
     position: absolute;
     top: 250px;
     left: 0px;
+    text-decoration: none;
 
     background-image: -webkit-gradient(
         linear,
@@ -268,20 +293,21 @@ div#right .links ol {
     margin-top: 10px;
 }
 
-ul.ads {
+ul.estate_links {
     text-align: left;
     margin-top: 0px;
     position: relative;    
 }
 
-ul.ads li {
+ul.estate_links li {
     padding: 10px;
     font-size: 18px;
     padding-left: 25px;
     margin-left: 20px;
 }
 
-ul.ads li > a {
+
+ul.estate_links li > a {
     text-decoration: none;
     color: #3A89C9;
 
@@ -292,39 +318,47 @@ ul.ads li > a {
     display: block;
 }
 
-ul.ads li > a:hover {
+ul.estate_links li > a:hover {
     text-decoration: underline;
     color: #2B4E72;
 }
 
-ul.ads li > a:visited {
+ul.estate_links li > a:visited {
     color: #9CC4E4;
 }
 
-ul.ads li.avito {
+ul.estate_links li.agent > a {
+    color: red !important;
+}
+
+ul.estate_links li.agent > a:visited {
+    color: red !important;
+}
+
+ul.estate_links li.avito {
     background: url(http://avito.ru/favicon.ico) center left no-repeat;
 }
 
-ul.ads li.slando {
+ul.estate_links li.slando {
     background: url(http://slando.ru/favicon.ico) center left no-repeat;
 }
 
-ul.ads li.olx {
+ul.estate_links li.olx {
     background: url(http://olx.ru/favicon.ico) center left no-repeat;
 }
 
-ul.ads li.irr {
+ul.estate_links li.irr {
     background: url(http://irr.ru/favicon.ico) center left no-repeat;
 }
 
-ul.ads li.time {
+ul.estate_links li.time {
     color: #666;
     
     padding-left: 0px;
     margin-left: 0px;
 }
 
-ul.ads li.title {
+ul.estate_links li.title {
     color: #333;
     font-size: 200%;
     padding-left: 0;
@@ -343,6 +377,7 @@ li.load_more {
     width: 300px;
     margin-left: 120px;
     cursor: pointer;
+    border: 1px solid #ccc;
 }
 
 div#footer {
@@ -489,4 +524,133 @@ div#footer {
     border: 1px solid #aaa;
 }
 
+.thanks_form {
+    width: 500px;    
+    font-family: 'PT Sans', serif;
+}
 
+.thanks_form h2 {    
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 5px;
+}
+
+.thanks_form .desc {
+    font-size: 16px;
+}
+
+.thanks_form fieldset {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+    margin-top: 10px;
+
+    height: 60px;
+}
+
+.thanks_form legend {
+    margin-left: 20px;    
+    font-size: 14px;
+    padding: 3px;
+}
+
+.thanks_form .fastspring {
+    background: url(/images/fastspring.gif) center right no-repeat;
+}
+
+.thanks_form .fastspring .amount {
+    font-size: 20px;
+}
+
+.thanks_form .fastspring .donation {    
+   border: 1px solid #ccc;
+   padding: 3px;
+   font-size: 20px;
+   margin-left: 5px;
+   width: 50px;
+}
+
+.thanks_form .fastspring .send_donation {    
+    padding: 5px;
+    margin-left: 10px;
+    font-size: 20px;
+}
+
+.thanks_form .yandex {
+    background: url(/images/yandex.gif) 230px 10px no-repeat;
+}
+
+.thanks_form .account {
+    font-size: 20px;
+}
+
+.other_towns {
+    font-size: 16px;
+    width: 500px;
+}
+
+.other_towns h2 {    
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    padding-bottom: 5px;
+}
+
+.other_towns .social {
+    margin-top: 20px;
+}
+
+.other_towns .social a {
+    margin-right: 10px;
+    color: #333;
+}
+
+#left_header .rss {
+    margin-left: 250px;
+    margin-top: 8px;
+    background: url(/images/rss.png) no-repeat;
+    text-indent: -9999;
+    display: inline-block;
+    width: 35px;
+    height: 30px;
+}
+
+.article {
+    padding-top: 50px;
+}
+
+.article h1 {
+    font-size: 28px;
+    padding-bottom: 60px;
+}
+
+.article .block {
+    position: relative;
+    padding-left: 300px;
+    margin-bottom: 100px;
+    font-family: 'PT Sans', arial;
+}
+
+.article .block p {
+    margin-bottom: 20px;
+    line-height: 150%;
+    font-size: 14px;
+    font-family: 'PT Sans', arial;
+}
+
+.article .block h3 {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    font-size: 16px;
+    color: #666;
+}
+
+.article a.doc {
+    position: absolute;
+    font-size: 14px;
+    top: 30px;
+    left: 0px;
+}

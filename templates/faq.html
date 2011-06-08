@@ -7,7 +7,7 @@
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
         <link type="text/css" rel="stylesheet" media="all" href="/css/facebox.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?12" />
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?10" />
     </head>
     <body>  
         <div id="header">
@@ -46,56 +46,31 @@
             </div>
         </div>
         <div id="wrapper">            
-            {% if admin %}
-            <form action="/admin/agent_phones" method="POST" style="text-align: left">
-                <label>Телефоны риэлторов</label>
-                <br/>
-                <input placeholder="Причина" name="source" type="text" />
-                <br/>
-                <textarea name="phones" style="width: 600px; height: 200px;"></textarea>
-                <br/>
-                <input type="submit" />
-            </form>
-            {% endif %}
-            <div class="relative">
-                <div id="left">
-                    <div id="left_header">
-                        <div class="select_town">
-                            <span class='name'>Санкт-Петербург</span>
-                            <span class='arrow'>▾</span>
-
-                            <ul class="towns" style="display: none">
-                                <li id="other_towns">Другой город</li>
-                            </ul>
-                        </div>
-                        
-                        <a href="http://feeds.feedburner.com/rentfilter/HQvl" class='rss' style="display: none"></a>
-
-                        <div class="filter" {% if hide_filter %}style="display:none"{% endif %}>
-                            <label>Тид аренды:</label>
-                            <a href="javascript:;" class='active' data-filter='monthly'>Долгосрочная</a>
-                            <a href="javascript:;" data-filter='hourly'>Посуточная</a>
-                        </div>
-                    </div>
-                    <ul class="estate_links">
-                        {% include 'ads.html' %}
-                        <li class="load_more" {% if hide_controls %}style='display:none'{% endif %}><a data-cursor='{{cursor}}' data-start-from='{{start_from}}'>Загрузить еще</a></li>
-                    </ul>
+            <div class="relative article">
+                <h1>Что нужно сделать, чтобы снять квартиру без посредников</h1>
+                <div class="block" id="call">
+                    <h3>Связаться с хозяином</h3>
+                    <p>Во время телефонного разговора с хозяином квартиры расскажите о себе полно и правдиво. Договоритесь о дне, когда сможете посмотреть квартиру</p>
                 </div>
-                <div id="right">
-                    <div class='links'>
-                        <span class='title'>Как снять квартиру от хозяина</span> 
-                        <ol>
-                            <li><a href="/faq#call">Связаться с хозяином</a></li>
-                            <li><a href="/faq#examine">Изучить документы на квартиру</a></li>
-                            <li><a href="/faq#sign">Подписать договор</a></li>
-                        </ol>
-                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта города</div>
-                        <a href="http://goo.gl/maps/AYKn" target="_blank" class='map'><img src='/images/spb_map.png'/></a>
-                        <div class="title" style="margin-top: 50px; font-size: 14px;">Карта метро</div>
-                        <a href="http://metro.yandex.ru/spb/" target="_blank" class='map'><img src='http://yandex.st//metro-data/maps/spb.gif?1.0.17' /></a>
+                <div class="block" id="examine">
+                    <h3>Изучить документы на квартиру</h3>
+                    <p>Перед тем, как заключить договор о найме, убедитесь в том, что человек, предлагающий свою квартиру в аренду, действительный ее владелец. Проверьте его паспорт и право собственности, а также правоустанавливающие (договор купли-продажи, мены, дарения, передачи) и правоподтверждающие документы.<p>
+                    <p>Можно заплатить 100 рублей и проверить реальных собственников квартиры в Управлении Федеральной службы реестра (<a href="http://www.to77.rosreestr.ru/">http://www.to77.rosreestr.ru</a>): там значатся все сделки с недвижимостью, совершенные с 1998 года (кроме найма).</p>
+                    <p>Все собственники квартиры  и прописанные в ней люди должны дать официальное согласие на ее аренду и присутствовать при подписании договора. Информацию про всех, кто зарегистрирован в квартире, можно проверить, взяв выписку из лицевого счета в ЖЭКе.</p>
+                </div>
+                <div class="block" id="sign">
+                    <h3>Подписать договор</h3>
+                    <a class="doc" href="https://docs.google.com/document/d/1jXhug6Int5xVcboQXuzhKkV7Fc-_CaHFaO-_HzGsUfg/edit?hl=ru">Открыть пример довора аренды</a>
 
-                    </div>
+                    <p>Прочитайте договор очень внимательно. Обратите внимание на имена собственников, срок сдачи, запланировано или нет повышение цены в течении срока сдачи, входят ли в стоимость месячной аренды коммунальные платежи, до какого числа каждый месяц должны выплачиваться деньги, описано ли имущество и состояние квартиры и т.д.</p>
+                    <p>Будет большим плюсом, если в договоре с обеих сторон будут указаны все собственники квартиры и все, кто собирается в ней жить.</p>
+                    <p>Помните, что договор найма заключается только между физическими лицами и сроком до 5 лет. Договор аренды может заключаться между юридическими лицами и на любой срок, но если срок равен или превышает 12 месяцев, то договор нужно регистрировать в УФРС.</p>
+
+                    <p>Когда договор будет подписан и вы вселитесь в арендуемую квартиру, заведите отдельный блокнот, куда будете записывать все выплаты хозяевам помещения. А они должны каждый раз ставить там свою подпись.</p>
+                </div>     
+                <div class="block">
+                    <h3>Сказать "Спасибо"</h3>
+                    <p>Если благодаря нашему сайту вы успешно нашли себе квартиру для аренды, вы можете вернуться на <a href="http://www.rentfilter.ru">RentFilter.ru</a> и поблагодарить нас за помощь. Это будет вдохновлять нас на то, чтобы делать этот сайт еще более удобным и полезным.</p>
                 </div>
             </div>
             <div class="clear"></div>
@@ -125,7 +100,7 @@
                     <h3>О проекте</h3>
                     <p>Зайдя на любой сайт с объявлениями об аренде квартир, вам придется позвонить не по одному десятку номеров, прежде чем найти объявление действительно от владельца квартиры, а не от риэлторского агентства. Но и это может случиться, только если вам очень повезет.</p>
                     <p>RentFilter поможет снять квартиру без посредников. Наши роботы фильтруют объявления об аренде помещений и оставляют только те, которые подают сами хозяева квартир.</p>
-                    <p style="white-space:nowrap;">Если у вас возникли вопросы, пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:hello@rentfilter.ru'>hello@rentfilter.ru</a></p>
+                    <p style="white-space:nowrap;">Если у вас возникли вопросы, пишите нам <a href="http://rentfilter.copiny.com/">сюда</a> или на почту <a href='mailto:contacts@rentfilter.ru'>contacts@rentfilter.ru</a></p>
                     <br/>
                     <br/>
                     <br/>
@@ -162,7 +137,7 @@
         <script src="/js/raphael-min.js"></script>
         <script src="/js/jquery.tooltip.min.js"></script>        
         <script src="/js/facebox.js"></script>
-        <script src="/js/app.js?1"></script>
+        <script src="/js/app.js"></script>
 
         <!-- Yandex.Metrika counter --><div style="display:none;"><script type="text/javascript">(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7309270 = new Ya.Metrika({id:7309270, accurateTrackBounce:true}); } catch(e) { } }); })(window, 'yandex_metrika_callbacks');</script></div><script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><noscript><div><img src="//mc.yandex.ru/watch/7309270" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
     </body>

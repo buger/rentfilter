@@ -13,14 +13,17 @@
     {% endifequal %}
 </li>
 {% endif %}
-<li class="{{ad.source}}" title="{{ad.title}}">
+<li class="{{ad.source}} {% ifnotequal ad.rating 100 %}agent{% endifnotequal %}" title="{{ad.title}}">
 <a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
-    {% if admin %}
+    {% if admin or not ad.rating %}
     <div>
         <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
-        <span>Телефон: {{ad.phone}}</span>
-        <span>Источник: {{ad.source}}</span>        
-        <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
+        {% if admin %}
+            <span>Телефон: {{ad.phone}}</span>
+            <span>Источник: {{ad.source}}</span>        
+            <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
+            <a href="/admin/ad/unmark/{{ad.phone}}">Не Агент!</a>
+        {% endif %}
     </div>
     {% endif %}
 </li>
