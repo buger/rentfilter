@@ -7,7 +7,8 @@
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssfonts/fonts-min.css">
         <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.3.0/build/cssbase/base-context-min.css">
         <link type="text/css" rel="stylesheet" media="all" href="/css/facebox.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?12" />
+        <link type="text/css" rel="stylesheet" media="all" href="/css/style.css?30" />
+        <meta name='yandex-verification' content='6d4fbace966b31d5' />
     </head>
     <body>  
         <div id="header">
@@ -35,14 +36,37 @@
             <div class='thanks_form'>
                 <h2>Помощь проекту RentFilter.ru</h2>
                 <div class='desc'>Если благодаря нашему сайту вы успешно нашли себе квартиру для аренды, вы можете поблагодарить нас за помощь. Это будет вдохновлять нас на то, чтобы делать этот сайт еще более удобным и полезным.</div>
+                <!--
                 <fieldset class="fastspring">
                     <legend>Карта или PayPal</legend>
                     <div class='amount'>$<input value="20" class="donation"/><input type="button" value="Оплатить" class="send_donation"/></div>
                 </fieldset>
+                -->
                 <fieldset class="yandex">
                     <legend>Яндекс.Деньги</legend>
                     <div class='account'>41001903998889</div> <a href="http://money.yandex.ru/prepaid/">Как внести деньги</a>
                 </fieldset>
+
+                {% if admin %}
+                <fieldset class="payment">
+                    <form action="http://www.onlinedengi.ru/wmpaycheck.php" method="post">
+                        <input type="hidden" name="project" value="608">
+                        <input type="hidden" name="source" value="608">
+                        <input type="hidden" name="order_id" value="demo">
+                        Ваш ник: <input type="text" name="nickname" value="demo">
+                        Сумма к оплате, в валюте платёжной системы: <input type="text" name="amount" value="100">
+                        Способ оплаты: 
+                        <select name="mode_type">
+                            <option value="49">Банковские карты</option>
+                            <option value="4">WebMoney WMB</option>
+                            <option value="3">WebMoney WME</option>
+                            <option value="7">Яндекс.Деньги</option>
+                            <option value="60">Банковские карты</option>
+                        </select>
+                        <input type="submit" value="Оплатить!">
+                    </form>
+                </fieldset>
+                {% endif %}
             </div>
         </div>
         <div id="wrapper">            
@@ -51,6 +75,8 @@
                 <label>Телефоны риэлторов</label>
                 <br/>
                 <input placeholder="Причина" name="source" type="text" />
+                <br/>
+                <input placeholder="Регион" name="region" type="text" value='msk' />
                 <br/>
                 <textarea name="phones" style="width: 600px; height: 200px;"></textarea>
                 <br/>
@@ -61,10 +87,19 @@
                 <div id="left">
                     <div id="left_header">
                         <div class="select_town">
+                            {% ifequal region 'spb' %}
                             <span class='name'>Санкт-Петербург</span>
+                            {% else %}
+                            <span class='name'>Москва</span>
+                            {% endifequal%}
                             <span class='arrow'>▾</span>
 
                             <ul class="towns" style="display: none">
+                                {% ifequal region 'spb' %}
+                                <li data-region="msk">Москва</li>
+                                {% else %}
+                                <li data-region="spb">Санкт-Петербург</li>
+                                {% endifequal %}
                                 <li id="other_towns">Другой город</li>
                             </ul>
                         </div>
@@ -76,10 +111,22 @@
                             <a href="javascript:;" class='active' data-filter='monthly'>Долгосрочная</a>
                             <a href="javascript:;" data-filter='hourly'>Посуточная</a>
                         </div>
+
                     </div>
+                        {% if admin %}
+                        <br />
+                        <br />
+                        <label>Метро:</label>
+                        <select id='metro'>
+                            {% for item in metro_list %}
+                            <option value="{{item.0}}">{{item.1.1}}</option>
+                            {% endfor %}
+                        </select>
+                        {% endif %}
+
                     <ul class="estate_links">
                         {% include 'ads.html' %}
-                        <li class="load_more" {% if hide_controls %}style='display:none'{% endif %}><a data-cursor='{{cursor}}' data-start-from='{{start_from}}'>Загрузить еще</a></li>
+                        <li class="load_more" {% if hide_controls %}style='display:none'{% endif %}><a data-cursor='{{cursor}}' data-start-from='{{start_from}}' data-region='{{region}}'>Загрузить еще</a></li>                        
                     </ul>
                 </div>
                 <div id="right">
@@ -91,10 +138,31 @@
                             <li><a href="/faq#sign">Подписать договор</a></li>
                         </ol>
                         <div class="title" style="margin-top: 50px; font-size: 14px;">Карта города</div>
+                        {% ifequal region 'spb' %}
                         <a href="http://goo.gl/maps/AYKn" target="_blank" class='map'><img src='/images/spb_map.png'/></a>
+                        {% else %}
+                        <a href="http://maps.google.ru/?ll=55.744893,37.65976&spn=0.219531,0.617294&z=11&lci=transit_comp" target="_blank" class='map'><img src='/images/msk_map.png'/></a>
+                        {% endifequal %}
                         <div class="title" style="margin-top: 50px; font-size: 14px;">Карта метро</div>
+                        {% ifequal region 'spb' %}
                         <a href="http://metro.yandex.ru/spb/" target="_blank" class='map'><img src='http://yandex.st//metro-data/maps/spb.gif?1.0.17' /></a>
+                        {% else %}
+                        <a href="http://metro.yandex.ru/moscow/" target="_blank" class='map'><img src='http://yandex.st//metro-data/maps/moscow.gif?1.0.17' /></a>
+                        {% endifequal %}
 
+                        {% ifequal region 'spb' %}
+                        <div class="ad" style="margin-top: 50px; font-size: 13px;">
+                            <div style="border-bottom: 1px solid #ccc">Реклама</div>
+                            <br/>
+                            <p style="color: #333; line-height: 150%;">
+                            Хотите сделать ремонт? Звоните!
+                            </br>
+                            Делаем быстро, качественно и не дорого!
+                            </br>
+                            89215428009, 89862925248 
+                            </p>
+                        </div>
+                        {% endifequal %}
                     </div>
                 </div>
             </div>
@@ -134,6 +202,10 @@
                         <span class="api">А еще у нас есть <a href="/api">API</a></span>
                     </p>
                 </div>
+                <div class="clear legal_links">
+                    <a href="/rules">Лицензия на поиск</a>
+                    <a href="/tos">Пользовательское соглашение</a>
+                </div>
             </div>
             <div class="clear admin_links">
                 {% if admin %}
@@ -146,7 +218,7 @@
         <div id="other_towns_popup" style="display:none">
             <div class='other_towns'>
                 <h2>RentFilter в вашем городе</h2>
-                <p>В данный момент мы работаем в тестовом режиме, только в Санкт-Петербурге. Вы можете подписаться на наши новости по ниже следующим ссылкам.</p>
+                <p>В данный момент мы работаем в тестовом режиме, только в Санкт-Петербурге и Москве. Вы можете подписаться на наши новости по ниже следующим ссылкам.</p>
 
                 <div class="social">
                     <a href="http://vkontakte.ru/rentfilter" class="vkontakte">Вконтакте</a>
@@ -162,8 +234,38 @@
         <script src="/js/raphael-min.js"></script>
         <script src="/js/jquery.tooltip.min.js"></script>        
         <script src="/js/facebox.js"></script>
-        <script src="/js/app.js?1"></script>
+        <script src="/js/app.js?15"></script>
+        <script src="/js/api.js?8"></script>
 
-        <!-- Yandex.Metrika counter --><div style="display:none;"><script type="text/javascript">(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7309270 = new Ya.Metrika({id:7309270, accurateTrackBounce:true}); } catch(e) { } }); })(window, 'yandex_metrika_callbacks');</script></div><script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><noscript><div><img src="//mc.yandex.ru/watch/7309270" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+        <!-- Yandex.Metrika counter --><div style="display:none;"><script type="text/javascript">(function(w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter7309270 = new Ya.Metrika({id:7309270, enableAll: true}); } catch(e) { } }); })(window, 'yandex_metrika_callbacks');</script></div><script src="//mc.yandex.ru/metrika/watch.js" type="text/javascript" defer="defer"></script><noscript><div><img src="//mc.yandex.ru/watch/7309270" style="position:absolute; left:-9999px;" alt="" /></div></noscript><!-- /Yandex.Metrika counter -->
+
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'rentfilter'; // required: replace example with your forum shortname
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var s = document.createElement('script'); s.async = true;
+                s.type = 'text/javascript';
+                s.src = 'http://' + disqus_shortname + '.disqus.com/count.js';
+                (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+            }());
+        </script>
+
+<!-- begin olark code --><script type='text/javascript'>/*{literal}<![CDATA[*/window.olark||(function(i){var e=window,h=document,a=e.location.protocol=="https:"?"https:":"http:",g=i.name,b="load";(function(){e[g]=function(){(c.s=c.s||[]).push(arguments)};var c=e[g]._={},f=i.methods.length; while(f--){(function(j){e[g][j]=function(){e[g]("call",j,arguments)}})(i.methods[f])} c.l=i.loader;c.i=arguments.callee;c.f=setTimeout(function(){if(c.f){(new Image).src=a+"//"+c.l.replace(".js",".png")+"&"+escape(e.location.href)}c.f=null},20000);c.p={0:+new Date};c.P=function(j){c.p[j]=new Date-c.p[0]};function d(){c.P(b);e[g](b)}e.addEventListener?e.addEventListener(b,d,false):e.attachEvent("on"+b,d); (function(){function l(j){j="head";return["<",j,"></",j,"><",z,' onl'+'oad="var d=',B,";d.getElementsByTagName('head')[0].",y,"(d.",A,"('script')).",u,"='",a,"//",c.l,"'",'"',"></",z,">"].join("")}var z="body",s=h[z];if(!s){return setTimeout(arguments.callee,100)}c.P(1);var y="appendChild",A="createElement",u="src",r=h[A]("div"),G=r[y](h[A](g)),D=h[A]("iframe"),B="document",C="domain",q;r.style.display="none";s.insertBefore(r,s.firstChild).id=g;D.frameBorder="0";D.id=g+"-loader";if(/MSIE[ ]+6/.test(navigator.userAgent)){D.src="javascript:false"} D.allowTransparency="true";G[y](D);try{D.contentWindow[B].open()}catch(F){i[C]=h[C];q="javascript:var d="+B+".open();d.domain='"+h.domain+"';";D[u]=q+"void(0);"}try{var H=D.contentWindow[B];H.write(l());H.close()}catch(E){D[u]=q+'d.write("'+l().replace(/"/g,String.fromCharCode(92)+'"')+'");d.close();'}c.P(2)})()})()})({loader:(function(a){return "static.olark.com/jsclient/loader0.js?ts="+(a?a[1]:(+new Date))})(document.cookie.match(/olarkld=([0-9]+)/)),name:"olark",methods:["configure","extend","declare","identify"]});
+/* custom configuration goes here (www.olark.com/documentation) */
+olark.identify('8037-138-10-8448');/*]]>{/literal}*/</script>
+<!-- end olark code -->        
+
+<script type="text/javascript">
+  var _kmq = _kmq || [];
+  function _kms(u){
+    setTimeout(function(){
+      var s = document.createElement('script'); var f = document.getElementsByTagName('script')[0]; s.type = 'text/javascript'; s.async = true;
+      s.src = u; f.parentNode.insertBefore(s, f);
+    }, 1);
+  }
+  _kms('//i.kissmetrics.com/i.js');_kms('//doug1izaerwt3.cloudfront.net/56d5826bacafb03af035519fca681465654a3815.1.js');
+</script>
     </body>
 </html>

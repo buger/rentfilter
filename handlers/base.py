@@ -17,6 +17,7 @@ from google.appengine.api import users
 from google.appengine.api import mail
 
 template.register_template_library('with_tag')
+template.register_template_library('metro_tag')
 template.register_template_library('set_variable_tag')
 
 class AppHandler(webapp.RequestHandler):
@@ -58,8 +59,18 @@ class AppHandler(webapp.RequestHandler):
 
 
     def render_json(self, data):
-        self.response.headers['Content-Type'] = 'application/json'
-        self.response.out.write(json.dumps(data))
+        if data.__class__.__name__ not in ['str', 'unicode', 'Text']:
+            data = json.dumps(data)
+
+        if self.request.get('callback'):
+            self.response.headers['Content-Type'] = 'application/javascript'
+
+            data = "%s(%s)" % (self.request.get('callback'), data)
+        else:
+            self.response.headers['Content-Type'] = 'application/json'
+
+
+        self.render_text(data)
 
     def render_text(self, string):
         self.response.out.write(string)

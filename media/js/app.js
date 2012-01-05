@@ -10,21 +10,16 @@ function filterAds(){
 
         var hide = false;
 
-        var ban_words = /(сниму|снимем|помогу|снимет)/;
         var hourly_words = /(посуточно|посуточная|сутки)/;
         
-        if (filter_type == 'hourly') {
-            if (!this.innerHTML.match(hourly_words)) {
+        if (filter_type == 'hourly') {            
+            if (!(this.innerHTML.match(hourly_words) || parseInt($(this).data('price')) < 4000))  {
                 hide = true
             }
         } else {
-            if (this.innerHTML.match(hourly_words)) {
+            if (this.innerHTML.match(hourly_words) || parseInt($(this).data('price')) < 4000 ) {
                 hide = true
             }
-        }
-
-        if (!hide && this.innerHTML.match(ban_words)) {
-            hide = true;
         }
 
         if (hide) {
@@ -51,15 +46,17 @@ $('.load_more a').bind('click', function(){
     var self = this;
     this.innerHTML = 'Загрузка...'
     var cursor = $(this).data('cursor');
+    var region = $(this).data('region');
     var start_from = $(this).data('start-from');
 
-    $.getJSON('/', {cursor: cursor, start_from: start_from }, 
+    $.getJSON('/', {region:region, cursor: cursor, start_from: start_from }, 
         function(data){
             if (data.html.length <= 1) {
                 return $(self.parentNode).hide();
             }
 
             $(self).data('cursor', data.cursor);
+            $(self).data('region', data.region);
             $(self).data('start_from', data.start_from);
             
             var latest_time = $(self.parentNode).prevAll('li.time').find('span')[0].innerHTML;
@@ -91,6 +88,7 @@ $('.move_up').bind('click', function(){
 });
 
 $('.estate_links li').tooltip({ delay: 500 });
+
 
 $('.select_town').live('click', function(){
     $(this).find('.towns').toggle();
@@ -202,3 +200,22 @@ $('#other_towns').bind('click', function(){
     $.facebox({div: "#other_towns_popup"});
 });
 
+$('.towns li').bind('click', function(){
+    if ($(this).data('region')) {
+        window.location = window.location.protocol + '//' + window.location.host + "?region=" + $(this).data('region');
+    }
+});
+
+$('a.comments').live('click', function(evt){
+    var url = "/comments?key=" + $(this).data('disqus-identifier');
+
+    yaCounter7309270.hit('http://www.rentfilter.ru#comments', 'Пожаловаться');
+
+    $.facebox({ 'ajax':url });    
+});
+
+$('#metro').live('change', function(){
+    var region = $('.load_more a').data('region');
+
+    window.location = window.location.protocol + '//' + window.location.host + "?region=" + region + "&metro=" + $(this).val();
+});

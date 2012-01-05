@@ -32,6 +32,31 @@ indexes:
 
 - kind: Ad
   properties:
+  - name: address_id
+  - name: offer_type
+  - name: rating
+  - name: region
+  - name: created_at
+    direction: desc
+
+- kind: Ad
+  properties:
+  - name: address_id
+  - name: rating
+  - name: region
+  - name: created_at
+    direction: desc
+
+- kind: Ad
+  properties:
+  - name: offer_type
+  - name: rating
+  - name: region
+  - name: created_at
+    direction: desc
+
+- kind: Ad
+  properties:
   - name: parent_url
   - name: added_at
     direction: desc
@@ -53,3 +78,34 @@ indexes:
   - name: rating
   - name: created_at
     direction: desc
+
+- kind: Ad
+  properties:
+  - name: rating
+  - name: region
+  - name: added_at
+    direction: desc
+
+- kind: Ad
+  properties:
+  - name: rating
+  - name: region
+  - name: created_at
+    direction: desc
+
+- kind: Ad
+  properties:
+  - name: source
+  - name: added_at
+    direction: desc
+
+- kind: AvtoAd
+  properties:
+  - name: created_at
+  - name: creted_at
+    direction: desc
+
+- kind: AvtoAd
+  properties:
+  - name: phone
+  - name: created_at

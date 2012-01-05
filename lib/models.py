@@ -32,6 +32,8 @@ class Ad(db.Expando):
     phone = db.StringProperty()
     created_at = db.DateTimeProperty()
 
+    url = db.StringProperty()
+
     added_at = db.DateTimeProperty(auto_now_add = True)
 
     rating = db.IntegerProperty(default = 100)
@@ -40,19 +42,27 @@ class Ad(db.Expando):
 
     deleted = db.BooleanProperty(default = False)
 
+    address_id = db.StringProperty()
+    addresses = db.StringListProperty()
+
+    moderation_type = db.IntegerProperty()
+
+    offer_type = db.IntegerProperty(default = 1) # 1- sdam, 0 - snimu
+
+    rooms = db.IntegerProperty()
+
+    image = db.StringProperty()
+    has_image = db.BooleanProperty(default = False)
+
     def count_by_phone(self):
         return Ad.all().filter("phone =", self.phone).count()
 
     def count_by_contact(self):
         return Ad.all().filter("contact =", self.contact).count()
 
-    def icon(self):
-        if self.source == 'avito':
-            return 'http://www.avito.ru/favicon.ico'
-        elif self.source == 'olx':
-            return 'http://olx.ru/favicon.ico'
-        elif self.source == 'slando':
-            return 'http://slando.ru/favicon.ico'
+    def count_by_children(self):
+        return Ad.all().ancestor(self).count()
+
 
 import datetime
 import time

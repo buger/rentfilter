@@ -37,5 +37,5 @@ class Rss(AppHandler):
         self.response.headers['Content-Type'] = 'application/rss+xml'
         self.response.out.write(rss.to_xml('utf-8'))
 
-route('/rss/spb', Rss)
+#route('/rss/spb', Rss)
 

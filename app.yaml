@@ -6,6 +6,10 @@ api_version: 1
 default_expiration: "10d"
 
 handlers:
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
 - url: /css
   static_dir: media/css
 
@@ -29,7 +33,11 @@ handlers:
   login: admin
 
 - url: /.*
-  script: main_handler.py
+  script: main_handler.py  
 
 builtins:
 - datastore_admin: on
+
+inbound_services:
+- xmpp_message
+- xmpp_subscribe

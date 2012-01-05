@@ -36,4 +36,3 @@ def file_url(file_id):
         return "/images/empty.gif#file_id="+file_id
     else:
         return file_entry.url+"#file_id="+file_id
-

@@ -2,27 +2,53 @@
 {% if ad.show_date %}
 <li></li>
 <li class="time">
-    {% ifequal ad.added_at.day today.day %}
+    {% ifequal ad.created_at.day today.day %}
     <span>Сегодня</span>
     {% else %}
-        {% ifequal ad.added_at.day yesterday.day %}
+        {% ifequal ad.created_at.day yesterday.day %}
         <span>Вчера</span>
         {% else %}
-        <span>{{ad.added_at|date:"d m"}}</span>
+        <span>{{ad.created_at|date:"d m"}}</span>
         {% endifequal %}
     {% endifequal %}
 </li>
 {% endif %}
-<li class="{{ad.source}} {% ifnotequal ad.rating 100 %}agent{% endifnotequal %}" title="{{ad.title}}">
-<a href="{{ad.key.name}}" target="_blank">{{ad.title}}</a>
+<li class="source_{{ad.source}} {% ifnotequal ad.rating 100 %}agent{% endifnotequal %} {% if ad.deleted %} deleted {% endif %}" title="{{ad.title}}">
+    {% ifequal ad.source 'novoebenevo' %}
+    <a href="{{ad.url}}" target="_blank" data-price="{{ad.price}}">{{ad.title}}</a>
+    {% else %}    
+    <a href="{{ad.key.name}}" target="_blank" data-price="{{ad.price}}">{{ad.title}}</a>
+    {% endifequal %}
+    <div class='desc'>
+        <a href='#disqus_thread' data-disqus-identifier="{{ad.key.name}}" class='comments'>Пожаловаться!</a>
+        {% if ad.address_id %}
+        <span class="address">{{ ad.address_id|metro:ad.region }}</span>
+        {% endif %}
+        {% if ad.price %}
+        <span class="address">{{ ad.price }} руб.</span>
+        {% endif %}
+    </div>
     {% if admin or not ad.rating %}
     <div>
-        <span>Похожие: <a href="/?phone={{ad.phone}}" target="_blank">{{ad.count_by_phone}}</a></span>
+        <span>Похожие: <a href="/?phone={{ad.phone}}&region={{ad.region}}" target="_blank">{{ad.count_by_phone}}</a></span>
         {% if admin %}
+            {% if ad.parent %}
+            <span>Родитель:<a href="/?phone={{ad.parent.phone}}&region={{ad.region}}" target="_blank" {% ifnotequal ad.parent.rating 100 %}style='color:red'{% endifnotequal %}>{{ad.parent.phone}}</a></span> 
+            {% endif %}
+            {% if ad.has_image %}
+            <a href="{{ad.image}}">изображение</a>
+            {% endif %}
+            <span>Дочерние: {{ad.count_by_children}}</span>
             <span>Телефон: {{ad.phone}}</span>
             <span>Источник: {{ad.source}}</span>        
-            <a href="/admin/ad/delete/{{ad.key}}">Удалить</a> <a href="/admin/ad/mark/{{ad.key}}">Агент!</a>
-            <a href="/admin/ad/unmark/{{ad.phone}}">Не Агент!</a>
+            <span>Контакт: {{ad.contact}}</span>        
+            <a href="/admin/ad/delete/{{ad.key}}" target="_blank">Удалить</a> 
+            <a href="/admin/ad/mark/{{ad.key}}" target="_blank">Агент!</a>
+            <a href="/admin/ad/unmark/{{ad.phone}}" target="_blank">Не Агент!</a>
+            <a href="/admin/ad/recheck/{{ad.key}}" target="_blank">Перепроверить</a> 
+            <a href="/admin/ad/reprocess/{{ad.key}}" target="_blank">Перегрузить</a> 
+            <a href="http://www.google.ru/search?q={{ad.phone|format_phone}}" target="_blank">Искать телефон</a>            
+            <a href="https://appengine.google.com/datastore/edit?app_id=russiaflatrent&key={{ad.key}}" target="_blank">Редактировать</a>
         {% endif %}
     </div>
     {% endif %}

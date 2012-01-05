@@ -27,5 +27,25 @@ queue:
   rate: 1/s
   bucket_size: 1
 
+- name: 1gs
+  rate: 1/s
+  bucket_size: 1
+
+- name: avtoru
+  rate: 1/s
+  bucket_size: 1
+
+- name: vkontakte
+  rate: 30/m
+  bucket_size: 1
+
+- name: novoebenevo
+  rate: 30/m
+  bucket_size: 1
+
+- name: egent
+  rate: 30/m
+  bucket_size: 1
+
 - name: quick
   rate: 10/s

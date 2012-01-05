@@ -335,21 +335,46 @@ ul.estate_links li.agent > a:visited {
     color: red !important;
 }
 
-ul.estate_links li.avito {
+ul.estate_links li.deleted > a {
+    color: gray !important;
+}
+
+ul.estate_links li.deleted > a:visited {
+    color: gray !important;
+}
+
+ul.estate_links li.source_avito {
     background: url(http://avito.ru/favicon.ico) center left no-repeat;
 }
 
-ul.estate_links li.slando {
+ul.estate_links li.source_slando {
     background: url(http://slando.ru/favicon.ico) center left no-repeat;
 }
 
-ul.estate_links li.olx {
+ul.estate_links li.source_olx {
     background: url(http://olx.ru/favicon.ico) center left no-repeat;
 }
 
-ul.estate_links li.irr {
+ul.estate_links li.source_irr {
     background: url(http://irr.ru/favicon.ico) center left no-repeat;
 }
+
+ul.estate_links li.source_1gs {
+    background: url(http://1gs.ru/favicon.ico) center left no-repeat;
+}
+
+ul.estate_links li.source_vkontakte {
+    background: url(http://vkontakte.ru/favicon.ico) center left no-repeat;
+}
+
+ul.estate_links li.source_novoebenevo {
+    background: url(http://www.novoebenevo.ru/favicon.ico) center left no-repeat;
+}
+
+ul.estate_links li.source_egent {
+    background: url(http://www.egent.ru/favicon.ico) center left no-repeat;
+}
+
 
 ul.estate_links li.time {
     color: #666;
@@ -363,6 +388,21 @@ ul.estate_links li.title {
     font-size: 200%;
     padding-left: 0;
     margin-left: 0;
+}
+
+ul.estate_links li .desc {
+    line-height: 13px;
+}
+
+ul.estate_links li .desc > * {
+    color: #666;
+    font-size: 13px;
+    font-family: Arial;
+    margin-right: 10px;
+}
+
+ul.estate_links li .desc .comments {
+    color: #333;
 }
 
 li.load_more {
@@ -480,6 +520,13 @@ div#footer {
     right: 5px;
 }
 
+#footer .legal_links {
+    position: absolute;
+    top: 630px;
+    left: 5px;
+}
+
+
 #footer .move_up {
     text-decoration: none;
     color: #aaa;
@@ -493,6 +540,12 @@ div#footer {
 #footer .admin_links a {
     color: #333;    
 }
+
+#footer .legal_links a {
+    color: #ccc;
+    margin-right: 10px;
+}
+
 
 #facebook, #vkontakte {
     background: white;
