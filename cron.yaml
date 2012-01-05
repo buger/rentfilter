@@ -1,9 +1,5 @@
 cron:
 - description: daily summary job
-  url: /cron/ads
-  schedule: every 1 hours
-
-- description: daily summary job
   url: /avto/ads
   schedule: every 4 hours
   timezone: Europe/Moscow
