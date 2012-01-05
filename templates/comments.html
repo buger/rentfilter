@@ -1,0 +1,31 @@
+<div class="container" style="padding: 10px; width: 600px;">
+<h3><a href="{{ad.key.name}}" target="_blank" style="font-size: 140%;">{{ad.title}}</a></h3>
+
+<div id="disqus_thread"></div>
+
+<script type="text/javascript"> 
+    var disqus_identifier = "{{ad.key.name}}";
+    var disqus_url = "{{ad.key.name}}";
+</script>
+
+<script type="text/javascript"> 
+    var disqus_identifier = "{{ad.key.name}}";
+  /** 
+    * var disqus_identifier; [Optional but recommended: Define a 
+unique identifier (e.g. post id or slug) for this thread] 
+    */ 
+  (function() { 
+   // Remove the old script if it's found 
+   oldDsq = document.getElementById('disqusCommentScript'); 
+   if(oldDsq) { 
+      (document.getElementsByTagName('head')[0] || 
+document.getElementsByTagName('body')[0]).removeChild(oldDsq); 
+   } 
+   var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true; 
+   dsq.id = 'disqusCommentScript'; // This is my new ID 
+   dsq.src = 'http://bradsdeals.disqus.com/embed.js'; 
+   (document.getElementsByTagName('head')[0] || 
+document.getElementsByTagName('body')[0]).appendChild(dsq); 
+  })(); 
+</script> 
+</div>

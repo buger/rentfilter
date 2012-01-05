@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <style>
+            ol {
+                list-style: none;
+            }
+
+            #wrapper {
+                text-align: center;
+            }            
+        </style>
+        <link type="text/css" rel="stylesheet" media="all" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/base/jquery-ui.css" />
+    </head>
+    <body>
+        <div id="wrapper">            
+            <h1>Скачать телефоны за сегодня <a href="/avto/download?date=today">({{today}})</a>, вчера <a href="/avto/download?date=yesterday">({{yesterday}})</a> или выберите <a href="javascript:;" style="text-decoration: none; border-bottom: 2px dashed blue" id="show_date">дату</a></h1>            
+            <input type="text" id="date" style="visibility: hidden;"/>
+
+            <div class="info">
+                Внимание! Данные по телефонам за "Сегодня" меняются в течении дня, рекомендуем вам всегда выгружать телефоны за предыдущие дни.
+            </div>
+
+            <h3><a href="{{url}}" target="_blank">Ссылка на результаты поиска</a></h3>
+
+            <form action="/avto/settings" id='settings_form' onsubmit='return false'>
+                <h3>Условия поиска</h3>
+                <label>Цена от</label>
+                <input type="text" value="{{settings.price_start}}" name="price_start" />
+                <label>до</label>
+                <input type="text" value="{{settings.price_end}}" name="price_end" />
+
+                <input type="submit" value="Сохранить" />
+            </form>
+        </div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/jquery-ui.min.js"></script>
+
+        <script>
+            $(function(){
+                $('#date').datepicker({
+                    onSelect: function(dateText, inst){
+                        window.location = "/avto/download?date="+dateText;
+                    }
+                });
+
+                $('#show_date').bind('click', function(){
+                    $('#date').datepicker('show');
+                });
+                
+                $('#settings_form').bind('submit', function(evt){
+                    $.ajax({
+                        url: this.action, 
+                        type: 'POST', 
+                        data: { 'price_start': this.price_start.value, 'price_end': this.price_end.value },
+                    }).success(function(){
+                        $('<h2 style="color:green" />').html("Сохранено!").appendTo($('#wrapper')).delay(3000).fadeOut();
+                    });
+                });
+            });
+        </script>
+    </body>
+</html>
