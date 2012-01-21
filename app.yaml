@@ -32,6 +32,10 @@ handlers:
   script: main_handler.py
   login: admin
 
+- url: /remote_api
+  script: $PYTHON_LIB/google/appengine/ext/remote_api/handler.py
+  login: admin
+
 - url: /.*
   script: main_handler.py  
 
