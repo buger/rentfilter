@@ -101,6 +101,12 @@ indexes:
 
 - kind: AvtoAd
   properties:
+  - name: __key__
+    direction: desc
+
+
+- kind: AvtoAd
+  properties:
   - name: created_at
   - name: creted_at
     direction: desc
